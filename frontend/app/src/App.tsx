@@ -3,42 +3,46 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import { useEffect, useState } from "react";
+import client from './lib/api/client';
 
-interface ApiResponse {
-  item: string;
+interface LocationPosts {
+  id: number;
+  title: string;
+  description: string;
 }
 
 function App() {
-  const [data, setData] = useState< ApiResponse | null >(null);
+  const [data, setData] = useState< LocationPosts[] | null >(null);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
-    // HTTPリクエストを実行し、データを取得する
-    axios.get<ApiResponse>('https://v8vdln4u5j.execute-api.ap-northeast-1.amazonaws.com/Prod/hello/')
+    client.get<LocationPosts[]>('/location_posts')
       .then((response) => {
-        // レスポンスからデータを取り出す
         const responseData = response.data;
-
-        // データを設定
         setData(responseData);
       })
       .catch((error) => {
         console.error('HTTPリクエストエラー:', error);
-        setData(error.message);
+        setError(error.message);
       });
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
         {data && (
           <div>
-            <p>Data from API:</p>
-            <p>{data.item}</p>
+            <h3>Data from RailsAPI:</h3>
+            <ul>
+              {data.map((item) => (
+                <li key={item.id}>
+                  <h4>{item.title}</h4>
+                  <p>{item.description}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
+        {error && <p>Error: {error}</p>}
       </header>
     </div>
   );
