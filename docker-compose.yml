@@ -1,6 +1,6 @@
 version: '3'
 services:
-  api:
+  ass_api:
     build: ./backend/
     command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
@@ -8,10 +8,12 @@ services:
     ports:
       - 3001:3000
     depends_on:
-      - db
+      - ass_db
     tty: true
+    networks:
+      - ass_network 
     stdin_open: true
-  db:
+  ass_db:
     image: mysql:latest
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     volumes:
@@ -19,18 +21,26 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       TZ: "Asia/Tokyo"
+    expose:
+      - 3308
     ports:
-      - "3306:3306"
-  front:
+      - "3308:3306"
+    networks:
+      - ass_network 
+  ass_front:
     build: ./frontend/
     volumes:
       - ./frontend/app:/front
     command: sh -c "npm start"
     ports:
       - 3000:3000
+    networks:
+      - ass_network 
     tty: true
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
 volumes:
   db-volume:
+networks:
+  ass_network:
