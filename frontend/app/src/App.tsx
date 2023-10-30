@@ -1,9 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import axios from 'axios';
 import { useEffect, useState } from "react";
 import client from './lib/api/client';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 interface LocationPosts {
   id: number;
@@ -28,6 +27,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <header className="App-header">
         {data && (
           <div>
@@ -44,6 +44,7 @@ function App() {
         )}
         {error && <p>Error: {error}</p>}
       </header>
+      <Footer />
     </div>
   );
 }
