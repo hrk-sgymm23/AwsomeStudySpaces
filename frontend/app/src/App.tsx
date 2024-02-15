@@ -2,7 +2,9 @@ import './App.css';
 import { useEffect, useState } from "react";
 import client from './lib/api/client';
 import Header from './components/Header';
+import Body from './components/body';
 import Footer from './components/Footer';
+import Card from './components/Card';
 
 interface LocationPosts {
   id: number;
@@ -28,22 +30,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <header className="App-header">
-        {data && (
-          <div>
-            <h3>Data from RailsAPI:</h3>
-            <ul>
-              {data.map((item) => (
-                <li key={item.id}>
-                  <h4>{item.title}</h4>
-                  <p>{item.description}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {error && <p>Error: {error}</p>}
-      </header>
+      <Card />
       <Footer />
     </div>
   );
