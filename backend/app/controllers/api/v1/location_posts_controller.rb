@@ -13,7 +13,7 @@ class Api::V1::LocationPostsController < ApplicationController
     def create
         @location_post = LocationPost.new(location_post_params)
         if @location_post.save
-            render json: @location_post, status: :ok
+            render json: @location_post, status: :created
         else
             render json: @location_post.errors, status: :bad_request
         end
@@ -29,7 +29,7 @@ class Api::V1::LocationPostsController < ApplicationController
 
     def destroy
         if @location_post.destroy
-            render json: @location_post, status: :ok
+            render json: @location_post, status: :no_content
         else
             render json: { error: 'Failed to delete resource' }, status: :unprocessable_entity
         end
