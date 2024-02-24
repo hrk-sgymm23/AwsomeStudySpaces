@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import client from '../lib/api/client';
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import DetailPost from "../DetailPost";
 
 interface LocationPosts {
     id: number;
@@ -12,6 +14,7 @@ interface LocationPosts {
 function Card() {
     const [data, setData] = useState< LocationPosts[] | null >(null);
     const [error, setError] = useState<string | null>(null);
+
     useEffect(() => {
         client.get<LocationPosts[]>('/location_posts')
         .then((response) => {
@@ -28,8 +31,13 @@ function Card() {
             <div>
                 {data && data.map((item) => (
                     <div>
-                        <h2>{item.title}</h2>
-                        <ul style={{ listStyleType: 'none', margin: 0 }}>
+                        <h2>
+                            {item.title}
+                            <Routes>
+                                <Route path="/DetailPost" element={ <DetailPost /> } /> {/*RouteにHomeを設定する*/}
+                            </Routes>
+                        </h2>
+                        <ul style={{ listStyleType: 'none'}}>
                             <li>{item.id}</li>
                             <li>{item.address}</li>
                         </ul>
