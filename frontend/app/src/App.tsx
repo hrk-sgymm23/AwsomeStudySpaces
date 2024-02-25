@@ -7,6 +7,8 @@ import LocationPosts from './LocationPosts';
 import LocationPost from './LocationPost';
 import NotFound from './NotFound';
 import LocationPostsIndex from './LocationPostsIndex'
+import PostCreate from './PostCreate';
+import PostUpdate from './PostUpdate'
 
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
           <Route index element={ <LocationPostsIndex /> }/>
           <Route path=":locationPostId" element={ <LocationPost /> } />
         </Route>
+        <Route path="PostCreate" element={ <PostCreate /> }/>
+        <Route path="PostUpdate" element={ <PostUpdate /> }/>
         <Route path="*" element={ <NotFound /> } />
       </Routes>
     </div>

@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import client from './lib/api/client';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface LocationPost {
     id: number;
@@ -29,7 +30,11 @@ const LocationPosts: React.FC = () => {
 
     return (
         <div>
-            <h1>LocationPost</h1>
+            <a className="mr-5 hover:text-gray-900">
+                <Link to="/PostUpdate" state={{ id: locationPostId }}>
+                    Information Update
+                </Link>
+            </a><br />
             {data && (
                 <>
                     <h2>{data.title}</h2>
