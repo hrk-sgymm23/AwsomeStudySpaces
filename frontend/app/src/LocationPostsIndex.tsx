@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import client from '../lib/api/client';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import client from './lib/api/client';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Outlet } from 'react-router-dom';
 
 interface LocationPosts {
     id: number;
@@ -10,7 +10,7 @@ interface LocationPosts {
     address: string;
 }
 
-function Card() {
+const LocationPostsIndex = () => {
     const [data, setData] = useState< LocationPosts[] | null >(null);
     const [error, setError] = useState<string | null>(null);
 
@@ -26,21 +26,23 @@ function Card() {
         });
     }, []);
 
-    return (
-            <div>
-                {data && data.map((item) => (
-                    <div>
-                        <h2>
+    return(
+        <div>
+            {data && data.map((item) => (
+                <div>
+                    <h2>
+                        <Link to={ `/LocationPosts/${ item.id }` }>
                             {item.title}
-                        </h2>
-                        <ul style={{ listStyleType: 'none'}}>
-                            <li>{item.address}</li>
-                            <li>{item.description}</li>
-                        </ul>
-                    </div>
-                ))}
-            </div>
+                        </Link>
+                    </h2>
+                    <h3>{item.address}</h3>
+                    <ul style={{ listStyleType: 'none'}}>
+                        <li>{item.description}</li>
+                    </ul>
+                </div>
+            ))}
+        </div>
     );
 }
 
-export default Card;
+export default LocationPostsIndex;

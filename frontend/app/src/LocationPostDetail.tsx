@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import client from './lib/api/client';
 import Header from './components/Header';
 
-function DetailPost() {
+function LocationPostDetail() {
 
   return (
-    <div className="App">
-      <Header />
-      <h1>detail</h1>
+    <div>
+      <Header />  
+      <h1>Detail</h1>
     </div>
   );
 }
 
-export default DetailPost;
+export default LocationPostDetail;
