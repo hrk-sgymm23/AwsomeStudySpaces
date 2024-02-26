@@ -44,14 +44,7 @@ const LocationPosts: React.FC = () => {
 
     return (
         <div>
-            <a className="mr-5 hover:text-gray-900">
-                <Link to="/PostUpdate" state={{ id: locationPostId }}>
-                    Information Update
-                </Link>
-            </a><br />
-            <form>
-                <button type="button" onClick={removeLocationPost}>この投稿を削除</button>
-            </form>
+
             {data && (
                 <>
                     <h2>{data.title}</h2>
@@ -60,6 +53,13 @@ const LocationPosts: React.FC = () => {
                 </>
             )}
             {error && <p>{error}</p>}
+            <h3 className="mr-5 hover:text-gray-900">
+                <Link to="/PostUpdate" state={{ id: locationPostId }}>
+                    LocationPostUpdate
+                </Link>
+            </h3><br />
+            
+            <button type="button" onClick={removeLocationPost}>この投稿を削除</button>
         </div>
     );
 }

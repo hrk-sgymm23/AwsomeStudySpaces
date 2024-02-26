@@ -9,6 +9,7 @@ import NotFound from './NotFound';
 import LocationPostsIndex from './LocationPostsIndex'
 import PostCreate from './PostCreate';
 import PostUpdate from './PostUpdate'
+import SignUp from './SignUp';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         </Route>
         <Route path="PostCreate" element={ <PostCreate /> }/>
         <Route path="PostUpdate" element={ <PostUpdate /> }/>
+        <Route path="SignUp" element= { <SignUp /> }></Route>
         <Route path="*" element={ <NotFound /> } />
       </Routes>
     </div>

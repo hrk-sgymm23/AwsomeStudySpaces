@@ -70,6 +70,10 @@ const PostUpdate: React.FC = () => {
         }
     };
 
+    const moveRecession = () => {
+        navigation(-1);
+    }
+
 return (
     <div>
         <Header />
@@ -104,7 +108,8 @@ return (
                 </div>
                 
                 <button type="submit">送信</button><br />
-                <button type="button" onClick={deleteHandler}>入力リセット</button>
+                <button type="button" onClick={deleteHandler}>入力リセット</button><br />
+                <button type="button" onClick={moveRecession}>もどる</button>
         </form>
     </div>
     );
