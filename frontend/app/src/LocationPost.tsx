@@ -2,7 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import client from './lib/api/client';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface LocationPost {
     id: number;
@@ -12,6 +12,8 @@ interface LocationPost {
 }
 
 const LocationPosts: React.FC = () => {
+    const navigation = useNavigate()
+
     const { locationPostId } = useParams<{ locationPostId: string }>();
     const [data, setData] = useState<LocationPost | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -28,6 +30,18 @@ const LocationPosts: React.FC = () => {
             });
     }, [locationPostId]);
 
+    const removeLocationPost = async () => {
+        try {
+            const response = await client.delete(`location_posts/${locationPostId}`);
+            console.log('DELETE Success', response.data)
+            if (response.status === 204) {
+                navigation("/LocationPosts");
+            }
+        } catch (error) {
+            console.error('POST request failed:', error);
+        }
+    }
+
     return (
         <div>
             <a className="mr-5 hover:text-gray-900">
@@ -35,6 +49,9 @@ const LocationPosts: React.FC = () => {
                     Information Update
                 </Link>
             </a><br />
+            <form>
+                <button type="button" onClick={removeLocationPost}>この投稿を削除</button>
+            </form>
             {data && (
                 <>
                     <h2>{data.title}</h2>

@@ -2,9 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import client from './lib/api/client';
 import Header from './components/Header';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface FormData {
     title: string;
@@ -19,7 +17,7 @@ interface State {
 const PostUpdate: React.FC = () => {
     const Location = useLocation();
     const navigation = useNavigate()
-    
+
     const { id } = Location.state as State;
     const [data, setData] = useState<FormData | null>(null);
     const [error, setError] = useState<string | null>(null);
