@@ -40,6 +40,8 @@ services:
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - ass_api
 volumes:
   db-volume:
 networks:
