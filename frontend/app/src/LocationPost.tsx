@@ -33,8 +33,8 @@ const LocationPosts: React.FC = () => {
     const removeLocationPost = async () => {
         try {
             const response = await client.delete(`location_posts/${locationPostId}`);
-            console.log('DELETE Success', response.data)
             if (response.status === 204) {
+                console.log('LocationPost Create request successful:', response.data);
                 navigation("/LocationPosts");
             }
         } catch (error) {
