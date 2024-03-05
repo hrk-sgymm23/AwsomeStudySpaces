@@ -38,9 +38,9 @@ const PostCreate: React.FC = () => {
         e.preventDefault();
         try {
             const response = await client.post('/location_posts', formData);
-            console.log('POST request successful:', response.data);
             if (response.status === 201) {
-                navigation("/");
+                console.log('LocationPost Create request successful:', response.data);
+                navigation("/LocationPosts");
             }
         } catch (error) {
             console.error('POST request failed:', error);

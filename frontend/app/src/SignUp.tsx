@@ -39,12 +39,15 @@ const SignUp: React.FC = () => {
         e.preventDefault();
         try {
             const response = await signUp(SignUpParams)
-            console.log('SignUp request successful:', response.data);
             if (response.status === 200) {
-                localStorage.setItem('access-token', response.headers['access-token']);
-                localStorage.setItem('client', response.headers['client']);
-                localStorage.setItem('uid', response.headers['uid']);
-                navigation("/");
+                console.log(response.headers);
+                console.log(response.headers['client']);
+                console.log(response.headers['uid']);
+                localStorage.setItem("access-token", response.headers['access-token']);
+                localStorage.setItem("client", response.headers['client']);
+                localStorage.setItem("uid", response.headers['uid']);
+
+                navigation("/UserProfile");
             }
         } catch (error) {
             console.error('SignUp request failed:', error);
@@ -80,7 +83,7 @@ const SignUp: React.FC = () => {
                     <label>パスワード</label><br />
                     <input
                         type="text"
-                        name="description"
+                        name="password"
                         value={SignUpParams.password}
                         onChange={handleChange}
                     />
@@ -89,7 +92,7 @@ const SignUp: React.FC = () => {
                     <label>パスワード(確認)</label><br />
                     <input
                         type="text"
-                        name="description"
+                        name="passwordConfirmation"
                         value={SignUpParams.passwordConfirmation}
                         onChange={handleChange}
                     />

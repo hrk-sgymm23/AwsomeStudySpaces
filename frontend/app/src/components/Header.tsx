@@ -1,9 +1,7 @@
-import { create } from 'domain';
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { createContext } from 'vm';
-import { getCurrentUser } from '../lib/api/auth';
-import { data } from 'autoprefixer';
+import { getCurrentUser, signOut } from '../lib/api/auth';
 
 interface User {
     id: number
@@ -28,21 +26,41 @@ export const AuthContext = () => createContext( {} as{
 function Header() {
     const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
     const [currentUser, setCurrentUser] = useState<User | undefined>()
-
+    const navigator = useNavigate()
 
     const handleGetUserCurrent = async() => {
+        console.log("#####access-token:"+localStorage.getItem('access-token'))
+        console.log("#####client:"+localStorage.getItem('cliet'))
+        console.log("#####uid:"+localStorage.getItem('uid'))
+
         try {
             const response = await getCurrentUser()
-    
-            if (response?.data.isLogin === true) {
+            if (response?.data.is_login === true) {
+                console.log(response.data);
                 setIsSignedIn(true)
                 setCurrentUser(response?.data.data)
-                console.log(response?.data.data)
+                console.log("current user")
             } else {
+                localStorage.clear()
                 console.log("not current user")
             }
         } catch(err) {
             console.log(err)
+        }
+    }
+
+    const handleSignOut = async() => {
+        try {
+            const response = await signOut()
+            if (response?.status === 200) {
+                localStorage.clear()
+                alert("SignOut Success!!")
+                navigator("/LocationPosts")
+            } else {
+                alert("Signout Failed...")
+            }
+        } catch (err) {
+            console.log("Signout Failed...")
         }
     }
 
@@ -55,7 +73,7 @@ function Header() {
             <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
                 <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                 <h1 className="ml-3 text-xl">
-                    <Link to="/">
+                    <Link to="/LocationPosts">
                         Awsome Study Spaces
                     </Link>
                 </h1>
@@ -67,11 +85,17 @@ function Header() {
                         isSignedIn
                             ? 
                             <div>
+                                {/* {name &&<a className="mr-5 hover:text-gray-900">{name}</a>}<br /> */}
+                                {currentUser && <a className="mr-5 hover:text-gray-900">Wellcome!! {currentUser.name} </a>}<br />
                                 <a className="mr-5 hover:text-gray-900"><Link to="/UserProfile">UserProfile</Link></a><br />
                                 <a className="mr-5 hover:text-gray-900"><Link to="/PostCreate">Post Location</Link></a><br />
+                                <button type="button" onClick={handleSignOut}>SignOut</button>
                             </div>
                             :
-                            <div><a className="mr-5 hover:text-gray-900"><Link to="/SignUp">SignUp</Link></a><br /></div>
+                            <div>
+                                <a className="mr-5 hover:text-gray-900"><Link to="/SignUp">SignUp</Link></a><br />
+                                <a className="mr-5 hover:text-gray-900"><Link to="/SignIn">SignIn</Link></a><br />
+                            </div>
                     }
                 </div>
                 </nav>

@@ -10,6 +10,7 @@ import LocationPostsIndex from './LocationPostsIndex'
 import PostCreate from './PostCreate';
 import PostUpdate from './PostUpdate'
 import SignUp from './SignUp';
+import SignIn from './SignIn';
 import UserProfile from './UserProfile';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="PostCreate" element={ <PostCreate /> }/>
         <Route path="PostUpdate" element={ <PostUpdate /> }/>
         <Route path="SignUp" element= { <SignUp /> }></Route>
+        <Route path="SignIn" element= { <SignIn /> }></Route>
         <Route path="UserProfile" element= { <UserProfile /> }></Route>
         <Route path="*" element={ <NotFound /> } />
       </Routes>

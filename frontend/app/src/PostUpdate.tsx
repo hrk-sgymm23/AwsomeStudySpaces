@@ -60,9 +60,10 @@ const PostUpdate: React.FC = () => {
         e.preventDefault();
         try {
             const response = await client.put(`/location_posts/${id}`, formData);
-            console.log('POST request successful:', response.data);
             if (response.status === 200) {
-                navigation("/");
+                console.log('LocationPost Update request successful:', response.data);
+                navigation("/LocationPosts");
+
             }
         } catch (error) {
             console.error('POST request failed:', error);

@@ -13,7 +13,7 @@ export const signUp = (params: SignUpParams) => {
     return client.post('/auth', params);
 };
 
-export const SignIn = (params: SignInParams) => {
+export const signIn = (params: SignInParams) => {
     return client.post('/auth/sign_in', params) ;
 }
 
@@ -22,5 +22,5 @@ export const signOut = () => {
 }
 
 export const getCurrentUser = () => {
-    return client.get('/auth/session', { headers: getAuthHeaders() })
+    return client.get('/auth/sessions', { headers: getAuthHeaders() })
 }
