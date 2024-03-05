@@ -1,53 +1,36 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { createContext } from 'vm';
 import { getCurrentUser, signOut } from '../lib/api/auth';
-
-interface User {
-    id: number
-    uid: string
-    provider: string
-    email: string
-    name: string
-    nickname?: string
-    image?: string
-    allowPasswordChange: boolean
-    created_at: Date
-    updated_at: Date
-}
-
-export const AuthContext = () => createContext( {} as{
-    isSignedIn: boolean
-    setIsSignedIn: React.Dispatch<React.SetStateAction<boolean>>
-    currentUser: User | undefined
-    setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>
-})
+import { User } from '../interfaces';
+import { AuthContext } from '../App';
 
 function Header() {
-    const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
-    const [currentUser, setCurrentUser] = useState<User | undefined>()
+    // const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
+    // const [currentUser, setCurrentUser] = useState<User | undefined>()
+    const { isSignedIn, currentUser, setIsSignedIn, setCurrentUser } = useContext(AuthContext);
     const navigator = useNavigate()
 
-    const handleGetUserCurrent = async() => {
-        console.log("#####access-token:"+localStorage.getItem('access-token'))
-        console.log("#####client:"+localStorage.getItem('cliet'))
-        console.log("#####uid:"+localStorage.getItem('uid'))
+    // const handleGetUserCurrent = async() => {
+    //     console.log("#####access-token:"+localStorage.getItem('access-token'))
+    //     console.log("#####client:"+localStorage.getItem('cliet'))
+    //     console.log("#####uid:"+localStorage.getItem('uid'))
 
-        try {
-            const response = await getCurrentUser()
-            if (response?.data.is_login === true) {
-                console.log(response.data);
-                setIsSignedIn(true)
-                setCurrentUser(response?.data.data)
-                console.log("current user")
-            } else {
-                localStorage.clear()
-                console.log("not current user")
-            }
-        } catch(err) {
-            console.log(err)
-        }
-    }
+    //     try {
+    //         const response = await getCurrentUser()
+    //         if (response?.data.is_login === true) {
+    //             console.log(response.data);
+    //             setIsSignedIn(true)
+    //             setCurrentUser(response?.data.data)
+    //             console.log("current user")
+    //         } else {
+    //             localStorage.clear()
+    //             console.log("not current user")
+    //         }
+    //     } catch(err) {
+    //         console.log(err)
+    //     }
+    // }
 
     const handleSignOut = async() => {
         try {
@@ -64,9 +47,9 @@ function Header() {
         }
     }
 
-    useEffect(() => {
-        handleGetUserCurrent()
-    }, [setCurrentUser])
+    // useEffect(() => {
+    //     handleGetUserCurrent()
+    // }, [setCurrentUser])
 
     return (
         <header className="text-gray-600 body-font">
@@ -82,7 +65,7 @@ function Header() {
                 <a className="mr-5 hover:text-gray-900"><Link to="/LocationPosts">LocationPosts</Link></a><br />
                 <div>
                     {
-                        isSignedIn
+                        isSignedIn && currentUser
                             ? 
                             <div>
                                 {/* {name &&<a className="mr-5 hover:text-gray-900">{name}</a>}<br /> */}
