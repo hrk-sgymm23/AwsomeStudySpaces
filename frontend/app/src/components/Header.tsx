@@ -6,31 +6,8 @@ import { User } from '../interfaces';
 import { AuthContext } from '../App';
 
 function Header() {
-    // const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
-    // const [currentUser, setCurrentUser] = useState<User | undefined>()
     const { isSignedIn, currentUser, setIsSignedIn, setCurrentUser } = useContext(AuthContext);
     const navigator = useNavigate()
-
-    // const handleGetUserCurrent = async() => {
-    //     console.log("#####access-token:"+localStorage.getItem('access-token'))
-    //     console.log("#####client:"+localStorage.getItem('cliet'))
-    //     console.log("#####uid:"+localStorage.getItem('uid'))
-
-    //     try {
-    //         const response = await getCurrentUser()
-    //         if (response?.data.is_login === true) {
-    //             console.log(response.data);
-    //             setIsSignedIn(true)
-    //             setCurrentUser(response?.data.data)
-    //             console.log("current user")
-    //         } else {
-    //             localStorage.clear()
-    //             console.log("not current user")
-    //         }
-    //     } catch(err) {
-    //         console.log(err)
-    //     }
-    // }
 
     const handleSignOut = async() => {
         try {
@@ -38,6 +15,7 @@ function Header() {
             if (response?.status === 200) {
                 localStorage.clear()
                 alert("SignOut Success!!")
+                setIsSignedIn(false)
                 navigator("/LocationPosts")
             } else {
                 alert("Signout Failed...")
@@ -46,10 +24,6 @@ function Header() {
             console.log("Signout Failed...")
         }
     }
-
-    // useEffect(() => {
-    //     handleGetUserCurrent()
-    // }, [setCurrentUser])
 
     return (
         <header className="text-gray-600 body-font">

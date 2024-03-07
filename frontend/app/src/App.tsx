@@ -29,12 +29,7 @@ function App() {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false)
   const [currentUser, setCurrentUser] = useState<User | undefined>()
 
-
   const handleGetUserCurrent = async() => {
-    console.log("#####access-token:"+localStorage.getItem('access-token'))
-    console.log("#####client:"+localStorage.getItem('cliet'))
-    console.log("#####uid:"+localStorage.getItem('uid'))
-  
     try {
         const response = await getCurrentUser()
         if (response?.data.is_login === true) {
@@ -52,8 +47,9 @@ function App() {
   }
 
   useEffect(() => {
+    console.log("called handleGetUserCurrent!!!!!!!!!")
     handleGetUserCurrent()
-  }, [setCurrentUser])
+  }, [setCurrentUser, setIsSignedIn])
 
 
 // TODO: Loadingと場合分け

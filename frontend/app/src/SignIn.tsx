@@ -20,7 +20,6 @@ const SignIn: React.FC = () => {
     const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
     const [SignInParams, setSignInParams] = useState<SignInParams>(blankParams)
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSignInParams({
             ...SignInParams,
@@ -36,12 +35,13 @@ const SignIn: React.FC = () => {
         e.preventDefault();
         try {
             const response = await signIn(SignInParams)
-            console.log('SignIn request successful:', response.data);
             if (response.status === 200) {
                 localStorage.setItem('access-token', response.headers['access-token']);
                 localStorage.setItem('client', response.headers['client']);
                 localStorage.setItem('uid', response.headers['uid']);
-
+                
+                console.log('SignIn request successful:', response.data);
+                alert("SignIn Success!!")
                 setIsSignedIn(true)
                 setCurrentUser(response.data.data)
                 navigation("/UserProfile");
