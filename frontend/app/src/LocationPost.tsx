@@ -1,8 +1,9 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import client from './lib/api/client';
 import { useParams } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from './App';
 
 interface LocationPost {
     id: number;
@@ -17,6 +18,7 @@ const LocationPosts: React.FC = () => {
     const { locationPostId } = useParams<{ locationPostId: string }>();
     const [data, setData] = useState<LocationPost | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const { setIsSignedIn, setCurrentUser, isSignedIn } = useContext(AuthContext)
 
     useEffect(() => {
         client.get<LocationPost>(`/location_posts/${locationPostId}`)
@@ -53,13 +55,17 @@ const LocationPosts: React.FC = () => {
                 </>
             )}
             {error && <p>{error}</p>}
-            <h3 className="mr-5 hover:text-gray-900">
-                <Link to="/PostUpdate" state={{ id: locationPostId }}>
-                    LocationPostUpdate
-                </Link>
-            </h3><br />
-            
-            <button type="button" onClick={removeLocationPost}>この投稿を削除</button>
+            {/* TODO: ログインしているユーザーかつ投稿主だった場合の条件に変更 */}
+            {isSignedIn && (
+                <div>
+                    <h3 className="mr-5 hover:text-gray-900">
+                        <Link to="/PostUpdate" state={{ id: locationPostId }}>
+                            LocationPostUpdate
+                        </Link>
+                    </h3><br />
+                    <button type="button" onClick={removeLocationPost}>この投稿を削除</button>
+                </div>
+            )}
         </div>
     );
 }

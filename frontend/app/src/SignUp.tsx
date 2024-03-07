@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import client from './lib/api/client';
 
 import { Link, useNavigate } from "react-router-dom";
 import Header from './components/Header';
 import { signUp } from './lib/api/auth';
+import { AuthContext } from './App';
 
 interface SignUpParams {
     name: string,
@@ -21,7 +22,7 @@ const SignUp: React.FC = () => {
         passwordConfirmation: ''
     }
     const navigation = useNavigate()
-
+    const { setIsSignedIn, setCurrentUser } = useContext(AuthContext)
     const [SignUpParams, setSignUpParams] = useState<SignUpParams>(blankParams)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,13 +41,14 @@ const SignUp: React.FC = () => {
         try {
             const response = await signUp(SignUpParams)
             if (response.status === 200) {
-                console.log(response.headers);
-                console.log(response.headers['client']);
-                console.log(response.headers['uid']);
                 localStorage.setItem("access-token", response.headers['access-token']);
                 localStorage.setItem("client", response.headers['client']);
                 localStorage.setItem("uid", response.headers['uid']);
 
+                console.log('SignUp request successful:', response.data);
+                alert("SignUp Success!!")
+                setIsSignedIn(true)
+                setCurrentUser(response.data.data)
                 navigation("/UserProfile");
             }
         } catch (error) {
