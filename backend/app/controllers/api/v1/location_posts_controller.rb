@@ -35,12 +35,21 @@ class Api::V1::LocationPostsController < ApplicationController
         end
     end
 
+    def get_users_posts
+        if @user = User.find(params[:id])
+            @location_posts = @user.location_posts
+            render json: @location_posts, status: :ok 
+        else
+            render json: { error: 'not exit user' }, status: :bad_request
+        end
+    end
+
     private
         def set_location_post
             @location_post = LocationPost.find(params[:id])
         end
 
         def location_post_params
-            params.require(:location_post).permit(:title, :description, :address)
+            params.require(:location_post).permit(:title, :description, :address, :user_id)
         end
 end

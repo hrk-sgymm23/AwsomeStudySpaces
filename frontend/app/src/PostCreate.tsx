@@ -1,8 +1,9 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import client from './lib/api/client';
 import Header from './components/Header';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './App';
 
 interface FormData {
     title: string;
@@ -12,8 +13,9 @@ interface FormData {
 
 const PostCreate: React.FC = () => {
     const navigation = useNavigate()
+    const {currentUser, setCurrentUser} = useContext(AuthContext)
 
-    const [formData, setFormData] = useState<FormData>({
+    const [formData, setFormData] = useState<FormData>({ 
         title: '',
         address: '',
         description: ''
@@ -37,7 +39,8 @@ const PostCreate: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await client.post('/location_posts', formData);
+            const requestData = { ...formData, user_id: currentUser && currentUser.id }
+            const response = await client.post('/location_posts', requestData);
             if (response.status === 201) {
                 console.log('LocationPost Create request successful:', response.data);
                 navigation("/LocationPosts");
