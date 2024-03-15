@@ -10,6 +10,7 @@ interface LocationPost {
     title: string;
     description: string;
     address: string;
+    user_id: number;
 }
 
 const LocationPosts: React.FC = () => {
@@ -18,7 +19,7 @@ const LocationPosts: React.FC = () => {
     const { locationPostId } = useParams<{ locationPostId: string }>();
     const [data, setData] = useState<LocationPost | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const { setIsSignedIn, setCurrentUser, isSignedIn } = useContext(AuthContext)
+    const { setIsSignedIn, setCurrentUser, isSignedIn, currentUser } = useContext(AuthContext)
 
     useEffect(() => {
         client.get<LocationPost>(`/location_posts/${locationPostId}`)
@@ -55,8 +56,7 @@ const LocationPosts: React.FC = () => {
                 </>
             )}
             {error && <p>{error}</p>}
-            {/* TODO: ログインしているユーザーかつ投稿主だった場合の条件に変更 */}
-            {isSignedIn && (
+            {isSignedIn && data?.user_id == currentUser?.id && (
                 <div>
                     <h3 className="mr-5 hover:text-gray-900">
                         <Link to="/PostUpdate" state={{ id: locationPostId }}>
