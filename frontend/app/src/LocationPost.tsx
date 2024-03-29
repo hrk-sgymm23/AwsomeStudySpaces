@@ -4,6 +4,7 @@ import client from './lib/api/client';
 import { useParams } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from './App';
+import { title } from 'process';
 
 interface LocationPost {
     id: number;
@@ -11,6 +12,7 @@ interface LocationPost {
     description: string;
     address: string;
     user_id: number;
+    location_image: string
 }
 
 const LocationPosts: React.FC = () => {
@@ -55,8 +57,16 @@ const LocationPosts: React.FC = () => {
                     <p>{data.address}</p>
                 </>
             )}
+            
+            {data?.location_image && (
+                <div>
+                    {/* TODO: リンクを定数にする */}
+                    <img src={"http://localhost:3001/" + data.location_image} key={data.title} style={{ maxWidth: '600px', maxHeight: '600px', margin: '5px' }}/>
+                </div>
+            )}
+            
             {error && <p>{error}</p>}
-            {isSignedIn && data?.user_id == currentUser?.id && (
+            {isSignedIn && (data?.user_id == currentUser?.id) && (
                 <div>
                     <h3 className="mr-5 hover:text-gray-900">
                         <Link to="/PostUpdate" state={{ id: locationPostId }}>

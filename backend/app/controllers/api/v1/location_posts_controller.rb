@@ -7,12 +7,17 @@ class Api::V1::LocationPostsController < ApplicationController
     end
 
     def show
-        render json: @location_post, status: :ok
+        if @location_post.location_image.attached?
+            location_image = rails_blob_path(@location_post.show_location_image)
+            render json: @location_post.as_json.merge(location_image: location_image), status: :ok
+        else
+            render json: @location_post, status: :ok
+        end
+        
     end
 
     def create
-        @location_post = LocationPost.new(location_post_params)
-        if @location_post.save
+        if @location_post = LocationPost.create!(location_post_params)
             render json: @location_post, status: :created
         else
             render json: @location_post.errors, status: :bad_request
@@ -50,6 +55,6 @@ class Api::V1::LocationPostsController < ApplicationController
         end
 
         def location_post_params
-            params.require(:location_post).permit(:title, :description, :address, :user_id)
+            params.require(:location_post).permit(:title, :description, :address, :user_id, :location_image)
         end
 end
