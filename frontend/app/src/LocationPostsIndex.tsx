@@ -8,6 +8,7 @@ interface LocationPosts {
     title: string;
     description: string;
     address: string;
+    location_image: string
 }
 
 const LocationPostsIndex = () => {
@@ -36,9 +37,7 @@ const LocationPostsIndex = () => {
                         </Link>
                     </h2>
                     <h3>{item.address}</h3>
-                    <ul style={{ listStyleType: 'none'}}>
-                        <li>{item.description}</li>
-                    </ul>
+                    <img src={"http://localhost:3001/" + item.location_image} key={item.title} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }}/>
                 </div>
             ))}
         </div>

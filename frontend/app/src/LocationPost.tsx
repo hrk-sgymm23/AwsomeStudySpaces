@@ -60,7 +60,6 @@ const LocationPosts: React.FC = () => {
             
             {data?.location_image && (
                 <div>
-                    {/* TODO: リンクを定数にする */}
                     <img src={"http://localhost:3001/" + data.location_image} key={data.title} style={{ maxWidth: '600px', maxHeight: '600px', margin: '5px' }}/>
                 </div>
             )}

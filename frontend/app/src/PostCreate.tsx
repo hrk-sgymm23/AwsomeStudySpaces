@@ -66,10 +66,14 @@ const PostCreate: React.FC = () => {
             requestData.append('location_post[description]', formData.description)
             requestData.append('location_post[address]', formData.address)
             requestData.append('location_post[user_id]', currentUser ? currentUser.id.toString() : '');
-            requestData.append('location_post[location_image]', files[0])
-            
+            if (files[0]){
+                requestData.append('location_post[location_image]', files[0])    
+            }    
+            console.log("requestData##########")
+            console.log(requestData)
+
             const response = await client.post('/location_posts', requestData);
-            if (response.status === 201) {
+            if (response.status === 201 ||response.status === 204) {
                 console.log('LocationPost Create request successful:', response.data);
                 navigation("/LocationPosts");
             }

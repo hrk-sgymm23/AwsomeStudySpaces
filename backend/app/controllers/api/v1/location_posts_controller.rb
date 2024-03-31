@@ -3,7 +3,12 @@ class Api::V1::LocationPostsController < ApplicationController
 
     def index
         @location_posts = LocationPost.all
-        render json: @location_posts, status: :ok
+        location_post_with_images = @location_posts.flat_map do |post|
+            post.location_image.map do |image|
+                post.as_json.merge(location_image: rails_blob_path(image))
+            end
+        end
+        render json: location_post_with_images, status: :ok
     end
 
     def show
@@ -17,11 +22,20 @@ class Api::V1::LocationPostsController < ApplicationController
     end
 
     def create
-        if @location_post = LocationPost.create!(location_post_params)
+        ActiveRecord::Base.transaction do
+            if location_post_params.include?(:location_image)
+                @location_post = LocationPost.create!(location_post_params)
+            else
+                @location_post = LocationPost.new(location_post_params)
+                no_image_file = File.open(Rails.root.join('app/assets/blankImage.png'))
+                @location_post.location_image.attach(io: no_image_file, filename: 'no_image.png', content_type: 'image/png')
+                @location_post.save!
+            end
+
             render json: @location_post, status: :created
-        else
-            render json: @location_post.errors, status: :bad_request
         end
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { error: e.message }, status: :bad_request
     end
 
     def update
