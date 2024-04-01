@@ -36,7 +36,6 @@ const LocationPostsIndex = () => {
                             {item.title}
                         </Link>
                     </h2>
-                    <h3>{item.address}</h3>
                     <img src={"http://localhost:3001/" + item.location_image} key={item.title} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }}/>
                 </div>
             ))}

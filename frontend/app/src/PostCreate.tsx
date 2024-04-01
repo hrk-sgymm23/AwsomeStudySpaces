@@ -61,10 +61,10 @@ const PostCreate: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const requestData = new FormData()
-            requestData.append('location_post[title]', formData.title)
-            requestData.append('location_post[description]', formData.description)
-            requestData.append('location_post[address]', formData.address)
+            const requestData = new FormData();
+            requestData.append('location_post[title]', formData.title);
+            requestData.append('location_post[description]', formData.description);
+            requestData.append('location_post[address]', formData.address);
             requestData.append('location_post[user_id]', currentUser ? currentUser.id.toString() : '');
             if (files[0]){
                 requestData.append('location_post[location_image]', files[0])    
@@ -120,34 +120,29 @@ return (
             </div>
             {files.length == 0 && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <div {...getRootProps()} className={`drop-area`} 
-                    style={{ border: '1px dotted #000', padding: '10px', margin: '10px', width: '300px'}}>
-                    <input {...getInputProps()} />
-                    <p>ここにファイルをドラッグ&ドロップまたは
-                        <br />
-                        クリックしてファイルを選択してください。
-                        <br />
-                        ※画像は一枚のみ選択可能
-                    </p><br />
+                    <div {...getRootProps()} className={`drop-area`} 
+                        style={{ border: '1px dotted #000', padding: '10px', margin: '10px', width: '300px'}}>
+                        <input {...getInputProps()} />
+                        <p>ここにファイルをドラッグ&ドロップまたは
+                            <br />
+                            クリックしてファイルを選択してください。
+                            <br />
+                            ※画像は一枚のみ選択可能
+                        </p><br />
+                    </div>
                 </div>
-            </div>
             )}
             <div>
             {files.map(file => {
-                console.log("#########")
-                console.log(file)
-                const previewFile = file
                 if (file.type.startsWith('image/')) {
-                    return <img src={URL.createObjectURL(previewFile)} alt={previewFile.name} key={previewFile.name} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />;
+                    return <img src={URL.createObjectURL(file)} alt={file.name} key={file.name} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />;
                 } if (file.type === 'application/pdf') {
-                    return <iframe src={URL.createObjectURL(previewFile)} title={previewFile.name} key={previewFile.name} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />;
+                    return <iframe src={URL.createObjectURL(file)} title={file.name} key={file.name} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />;
                 } 
                     return null;  
             })}
-
-
             </div>
-            {/* <button type="button" onClick={deleteLocationImage}>画像削除</button> */}
+
             <button type="submit">送信</button><br />
             <button type="button" onClick={deleteHandler}>入力リセット</button>
         </form>
