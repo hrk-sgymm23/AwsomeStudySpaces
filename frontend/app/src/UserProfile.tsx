@@ -43,9 +43,9 @@ function UserProfile() {
                     <h2>{ currentUser.email }</h2>
                 </div>
             )}
+            <h3>My Posts</h3>
             {dataSummery && dataSummery.map((summary) => (
                 <div>
-                    <h2>My Posts</h2>
                     <h3>
                         <Link to={ `/LocationPosts/${ summary.id }` }>
                             {summary.title}
