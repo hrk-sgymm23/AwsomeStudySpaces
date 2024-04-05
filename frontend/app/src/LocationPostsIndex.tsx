@@ -28,16 +28,20 @@ const LocationPostsIndex = () => {
     }, []);
 
     return(
-        <div>
+        <div className='flex flex-wrap justify-center'>
             {data && data.map((item) => (
-                <div>
-                    <h2>
-                        <Link to={ `/LocationPosts/${ item.id }` }>
-                            {item.title}
-                        </Link>
-                    </h2>
-                    <img src={"http://localhost:3001/" + item.location_image} key={item.title} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }}/>
-                </div>
+                <Link to={ `/LocationPosts/${ item.id }` } key={item.id}>
+                    <div className="max-w-sm rounded-lg overflow-hidden shadow-lg m-4">
+                        <img 
+                            className='object-cover h-72 w-96' 
+                            src={"http://localhost:3001/" + item.location_image} 
+                            alt={item.title} 
+                        />
+                        <div className="px-6 py-4">
+                            <div className="font-bold text-xl mb-2">{item.title}</div>
+                        </div>
+                    </div>
+                </Link>
             ))}
         </div>
     );

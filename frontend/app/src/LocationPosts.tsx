@@ -1,4 +1,5 @@
 import './App.css';
+import './index.css';
 import React from 'react';
 import { useEffect, useState } from "react";
 import client from './lib/api/client';
