@@ -27,29 +27,30 @@ function Header() {
     }
 
     return (
-        
-        <header className="body-font text-left flex p-4">
-            <h1 className="text-4xl w-3/4">
-                <Link to="/LocationPosts">
-                🧑‍💻Awsome Study Spaces🧑‍💻
+        <header className="body-font text-left flex p-4 m-4">
+            <h1 className="text-4xl w-3/4 font-bold">
+                <Link to="/LocationPosts" className="hover:text-blue-600 transition-colors duration-300">
+                    🧑‍💻Awsome Study Spaces🧑‍💻
                 </Link>
             </h1>    
-            <div className='text-right text-l'>
-                {isSignedIn && currentUser ? 
-                <>
-                    {currentUser && <a className="mr-5 hover:text-gray-900">Welcome!! {currentUser.name}</a>}
-                    <a className="mx-50 hover:text-gray-900" href="/LocationPosts" style={{ margin: '5px' }}>LocationPosts</a>
-                    <a className="mr-5 hover:text-gray-900" href="/UserProfile" style={{ margin: '5px' }}>UserProfile</a>
-                    <a className="mr-5 hover:text-gray-900" href="/PostCreate" >Post Location</a>
-                    <button type="button" onClick={handleSignOut}>SignOut</button>
-                </>
-                :
-                <>
-                    <a className="m-50 hover:text-gray-900" href="/LocationPosts" style={{ margin: '5px' }}>LocationPosts</a>
-                    <a className="mr-5 hover:text-gray-900" href="/SignUp" style={{ margin: '5px' }}>SignUp</a>
-                    <a className="mr-5 hover:text-gray-900" href="/SignIn" style={{ margin: '5px' }}>SignIn</a>
-                </>
-                }
+            <div className='group body-font text-right text-xl font-bold'>
+                <div className='group-hover:visible opacity-100'>
+                    {isSignedIn && currentUser ? 
+                    <>
+                        {currentUser && <a>User: {currentUser.name}</a>}
+                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/LocationPosts" style={{ margin: '5px' }}>LocationPosts</a>
+                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/UserProfile" style={{ margin: '5px' }}>UserProfile</a>
+                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/PostCreate">Post Location</a>
+                        <button type="button" onClick={handleSignOut}>SignOut</button>
+                    </>
+                    :
+                    <>
+                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/LocationPosts" style={{ margin: '5px' }}>LocationPosts</a>
+                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/SignUp" style={{ margin: '5px' }}>SignUp</a>
+                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/SignIn" style={{ margin: '5px' }}>SignIn</a>
+                    </>
+                    }
+                </div>
             </div>
         </header>
     );

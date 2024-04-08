@@ -56,29 +56,74 @@ const SignIn: React.FC = () => {
     return (
         <div>
             <Header />
-            <h1>SignIn</h1>
+            <h1 className='
+                font-bold
+                text-3xl
+            '>SignIn</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>メールアドレス:</label><br />
+                <div className='
+                    p-4
+                    font-bold
+                    text-xl
+                '>
+                    <label>メールアドレス</label><br />
                     <input
+                        className='
+                            p-2
+                            border-solid
+                            border-2
+                            border-sky-500
+                            rounded-lg
+                        '
                         type="text"
                         name="email"
                         value={SignInParams.email}
                         onChange={handleChange}
                     />
                 </div>
-                <div>
+                <div className='
+                    p-4 
+                    font-bold
+                    text-xl
+                '>
                     <label>パスワード</label><br />
                     <input
+                        className='
+                            p-2
+                            border-solid
+                            border-2
+                            border-sky-500
+                            rounded-lg
+                        '
                         type="text"
                         name="password"
                         value={SignInParams.password}
                         onChange={handleChange}
                     />
                 </div>
-                    
-                <button type="submit">送信</button><br />
-                <button type="button" onClick={deleteHandler}>入力リセット</button>
+                <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+                type="submit">送信</button><br />
+                <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+                type="button"
+                onClick={deleteHandler}>入力リセット</button>
             </form>
         </div>
     );

@@ -105,37 +105,80 @@ const PostUpdate: React.FC = () => {
 return (
     <div>
         <Header />
-        <h1>PostUpdate</h1>
+        <h1 className='
+                font-bold
+                text-3xl
+        '>PostUpdate</h1>
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>タイトル:</label><br />
+            <div className='
+                    p-4
+                    font-bold
+                    text-xl
+            '>
+                <label>タイトル</label><br />
                 <input
+                    className='
+                        p-2
+                        border-solid
+                        border-2
+                        border-sky-500
+                        rounded-lg
+                    '
                     type="text"
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
                 />
             </div>
-            <div>
-                <label>場所:</label><br />
+            <div className='
+                p-4
+                font-bold
+                text-xl
+            '>
+                <label>場所</label><br />
                 <input
+                    className='
+                        p-2
+                        border-solid
+                        border-2
+                        border-sky-500
+                        rounded-lg
+                    '
                     type="text"
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
                 />
             </div>
-            <div>
+            <div className='
+                p-4
+                font-bold
+                text-xl
+            '>
                 <label>詳細文:</label><br />
                 <input
+                    className='
+                        p-2
+                        border-solid
+                        border-2
+                        border-sky-500
+                        rounded-lg
+                        h-72
+                        w-72
+                        text-balance
+                    '
                     type="text"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
                 />
             </div>
-            <div>
-                <label>画像選択:</label><br />
+            <div className='
+                p-4
+                font-bold
+                text-xl
+            '>
+                <label>画像選択</label><br />
             </div>
             {!formData.location_image && files.length == 0 && (
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -151,7 +194,11 @@ return (
                     </div>
                 </div>
             )}
-            <div>
+            <div className='
+                flex
+                justify-center
+                items-center
+            '>
             {files && formData.location_image && (
                 <img src={"http://localhost:3001/" +  formData.location_image} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />
             )}
@@ -169,15 +216,58 @@ return (
 
             {formData.location_image && (
             <div>
-                <button type="button" onClick={() => setFormData(prevState => ({ ...prevState, location_image: null }))}>
+                <button 
+                    className='
+                        m-2
+                        border-solid
+                        border-2
+                        border-sky-500
+                        font-bold
+                        text-xl
+                        rounded-2xl
+                        p-2
+                    '
+                    type="button"
+                    onClick={() => setFormData(prevState => ({ ...prevState, location_image: null }))}
+                >
                 画像を削除
                 </button>
             </div>
             )}
 
-            <button type="submit">送信</button><br />
-            <button type="button" onClick={deleteHandler}>入力リセット</button><br />
-            <button type="button" onClick={moveRecession}>もどる</button>
+            <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+            ' 
+            type="submit">送信</button><br />
+            <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+            type="button" onClick={deleteHandler}>入力リセット</button><br />
+            <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+            type="button" onClick={moveRecession}>もどる</button>
         </form>
     </div>
     );

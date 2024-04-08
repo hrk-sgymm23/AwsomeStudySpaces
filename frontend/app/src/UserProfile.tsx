@@ -36,16 +36,16 @@ function UserProfile() {
     return (
         <div>
             <Header />
-            <h1>UserProfile</h1>
+            <h1 className='p-4 text-4xl font-bold'>UserProfile</h1>
             {currentUser && (
-                <div>
+                <div className='p-4 text-2xl font-bold'>
                     <h2>{ currentUser.name }</h2>
                     <h2>{ currentUser.email }</h2>
                 </div>
             )}
-            <h3>My Posts</h3>
+            <h3 className='p-4 text-xl font-bold'>My Posts</h3>
             {dataSummery && dataSummery.map((summary) => (
-                <div>
+                <div className='p-4 text-l font-bold'>
                     <h3>
                         <Link to={ `/LocationPosts/${ summary.id }` }>
                             {summary.title}
