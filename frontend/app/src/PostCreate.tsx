@@ -69,7 +69,6 @@ const PostCreate: React.FC = () => {
             if (files[0]){
                 requestData.append('location_post[location_image]', files[0])    
             }    
-            console.log("requestData##########")
             console.log(requestData)
 
             const response = await client.post('/location_posts', requestData);
@@ -86,42 +85,96 @@ const PostCreate: React.FC = () => {
 return (
     <div>
         <Header />
-        <h1>PostCreate</h1>
+        <h1 className='
+                font-bold
+                text-3xl
+        '>投稿作成</h1>
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>タイトル:</label><br />
+            <div className='
+                    p-4
+                    font-bold
+                    text-xl
+            '>
+                <label>タイトル</label><br />
                 <input
+                    className='
+                        p-2
+                        border-solid
+                        border-2
+                        border-sky-500
+                        rounded-lg
+                    '
                     type="text"
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
                 />
             </div>
-            <div>
-                <label>場所:</label><br />
+            <div className='
+                p-4
+                font-bold
+                text-xl
+            '>
+                <label>場所</label><br />
                 <input
+                    className='
+                        p-2
+                        border-solid
+                        border-2
+                        border-sky-500
+                        rounded-lg
+                    '
                     type="text"
                     name="address"
                     value={formData.address}
                     onChange={handleChange}
                 />
             </div>
-            <div>
+            <div className='
+                    p-4
+                    font-bold
+                    text-xl
+            '>
                 <label>詳細文:</label><br />
                 <input
+                    className='
+                        p-2
+                        border-solid
+                        border-2
+                        border-sky-500
+                        rounded-lg
+                    '
                     type="text"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
                 />
             </div>
-            <div>
-                <label>画像選択:</label><br />
+            <div className='
+                    font-bold
+                    text-xl
+            '>
+                <label>画像選択</label><br />
             </div>
             {files.length == 0 && (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <div {...getRootProps()} className={`drop-area`} 
-                        style={{ border: '1px dotted #000', padding: '10px', margin: '10px', width: '300px'}}>
+                <div className='
+                    flex
+                    justify-center
+                    items-center
+                    h-72
+                '>
+                    <div {...getRootProps()}
+                        className='
+                            flex
+                            justify-center
+                            items-center
+                            w-72
+                            h-72
+                            border-solid
+                            border-2
+                            p-10
+                            rounded-lg
+                    '>
                         <input {...getInputProps()} />
                         <p>ここにファイルをドラッグ&ドロップまたは
                             <br />
@@ -132,10 +185,19 @@ return (
                     </div>
                 </div>
             )}
-            <div>
+            <div className='
+                flex
+                justify-center
+                items-center
+            '>
             {files.map(file => {
                 if (file.type.startsWith('image/')) {
-                    return <img src={URL.createObjectURL(file)} alt={file.name} key={file.name} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />;
+                    return <img
+                                src={URL.createObjectURL(file)}
+                                alt={file.name}
+                                key={file.name}
+                                style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }}
+                            />;
                 } if (file.type === 'application/pdf') {
                     return <iframe src={URL.createObjectURL(file)} title={file.name} key={file.name} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />;
                 } 
@@ -143,8 +205,28 @@ return (
             })}
             </div>
 
-            <button type="submit">送信</button><br />
-            <button type="button" onClick={deleteHandler}>入力リセット</button>
+            <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+            type="submit">送信</button><br />
+            <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+            type="button" onClick={deleteHandler}>入力リセット</button>
         </form>
     </div>
     );

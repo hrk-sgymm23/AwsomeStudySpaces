@@ -47,36 +47,60 @@ const LocationPosts: React.FC = () => {
         }
     }
 
+    const moveRecession = () => {
+        navigation(-1);
+    }
+
     return (
         <div>
-
-            {data && (
-                <>
-                    <h2>{data.title}</h2>
-                    <p>{data.description}</p>
-                    <p>{data.address}</p>
-                </>
-            )}
-            
-            {data?.location_image && (
-                <div>
-                    <img src={"http://localhost:3001/" + data.location_image} key={data.title} style={{ maxWidth: '600px', maxHeight: '600px', margin: '5px' }}/>
+            <div className='pt-20 flex justify-center w-screen'>
+                <div className='p-4 max-w-sm rounded-lg overflow-hidden shadow-lg'>
+                    {data?.location_image && (
+                        <div className="max-w-sm rounded-lg overflow-hidden shadow-lg m-4">
+                            <img
+                                className='object-cover h-120 w-96 mx-auto' // mx-auto で水平方向に中央揃え
+                                src={"http://localhost:3001/" + data.location_image} 
+                                alt={data.title} 
+                            />
+                        </div>
+                    )}
+                    {data && (
+                        <div className="px-6 py-4">
+                            <div className='font-bold text-xl mb-2'>
+                                <h2>{data.title}</h2>
+                                <p>{data.description}</p>
+                                <p>{data.address}</p>
+                            </div>
+                        </div>
+                    )}
+                    {error && <p>{error}</p>}
+                    {isSignedIn && (data?.user_id == currentUser?.id) && (
+                        <div>
+                            <h3 className="hover:text-gray-900 font-bold text-xl">
+                                <Link to="/PostUpdate" state={{ id: locationPostId }}>
+                                    投稿を編集する
+                                </Link>
+                            </h3><br />
+                            <button type="button" onClick={removeLocationPost}>投稿を削除</button>
+                        </div>
+                    )}
                 </div>
-            )}
-            
-            {error && <p>{error}</p>}
-            {isSignedIn && (data?.user_id == currentUser?.id) && (
-                <div>
-                    <h3 className="mr-5 hover:text-gray-900">
-                        <Link to="/PostUpdate" state={{ id: locationPostId }}>
-                            LocationPostUpdate
-                        </Link>
-                    </h3><br />
-                    <button type="button" onClick={removeLocationPost}>この投稿を削除</button>
-                </div>
-            )}
+            </div>
+            <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+            type="button" onClick={moveRecession}>もどる</button>
         </div>
+        
     );
 }
+
 
 export default LocationPosts;

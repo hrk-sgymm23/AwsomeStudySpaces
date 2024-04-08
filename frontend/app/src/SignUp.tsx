@@ -61,11 +61,29 @@ const SignUp: React.FC = () => {
     return (
         <div>
             <Header />
-            <h1>Sign UP</h1>
+            <h1 className='
+                font-bold
+                text-3xl'
+            >Sign UP</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>ユーザー名:</label><br />
-                    <input
+                <div className='
+                    p-4
+                    font-bold
+                    text-xl
+                '>
+                    <label
+                        className='
+                        p-4
+                        font-bold
+                        text-xl
+                    '>ユーザー名</label><br />
+                    <input className='
+                            p-2
+                            border-solid
+                            border-2
+                            border-sky-500
+                            rounded-lg
+                        '
                         type="text"
                         name="name"
                         value={SignUpParams.name}
@@ -73,8 +91,18 @@ const SignUp: React.FC = () => {
                     />
                 </div>
                 <div>
-                    <label>メールアドレス:</label><br />
-                    <input
+                    <label className='
+                        p-4
+                        font-bold
+                        text-xl
+                    '>メールアドレス</label><br />
+                    <input className='
+                            p-2
+                            border-solid
+                            border-2
+                            border-sky-500
+                            rounded-lg
+                        '                    
                         type="text"
                         name="email"
                         value={SignUpParams.email}
@@ -82,8 +110,18 @@ const SignUp: React.FC = () => {
                     />
                 </div>
                 <div>
-                    <label>パスワード</label><br />
-                    <input
+                    <label className='
+                        p-4
+                        font-bold
+                        text-xl
+                    '>パスワード</label><br />
+                    <input className='
+                            p-2
+                            border-solid
+                            border-2
+                            border-sky-500
+                            rounded-lg
+                        '
                         type="text"
                         name="password"
                         value={SignUpParams.password}
@@ -91,8 +129,19 @@ const SignUp: React.FC = () => {
                     />
                 </div>
                 <div>
-                    <label>パスワード(確認)</label><br />
-                    <input
+                    <label
+                    className='
+                        p-4
+                        font-bold
+                        text-xl
+                    '>パスワード(確認)</label><br />
+                    <input className='
+                            p-2
+                            border-solid
+                            border-2
+                            border-sky-500
+                            rounded-lg
+                        '
                         type="text"
                         name="passwordConfirmation"
                         value={SignUpParams.passwordConfirmation}
@@ -100,8 +149,28 @@ const SignUp: React.FC = () => {
                     />
                 </div>
                     
-                <button type="submit">送信</button><br />
-                <button type="button" onClick={deleteHandler}>入力リセット</button>
+                <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+                type="submit">送信</button><br />
+                <button className='
+                    m-2
+                    border-solid
+                    border-2
+                    border-sky-500
+                    font-bold
+                    text-xl
+                    rounded-2xl
+                    p-2
+                '
+                type="button" onClick={deleteHandler}>入力リセット</button>
             </form>
         </div>
     );
