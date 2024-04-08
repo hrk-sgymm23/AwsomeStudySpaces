@@ -181,9 +181,24 @@ return (
                 <label>画像選択</label><br />
             </div>
             {!formData.location_image && files.length == 0 && (
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <div {...getRootProps()} className={`drop-area`} 
-                        style={{ border: '1px dotted #000', padding: '10px', margin: '10px', width: '300px'}}>
+                <div className='
+                    flex
+                    justify-center
+                    items-center
+                    h-72
+                '>
+                    <div {...getRootProps()} 
+                        className='
+                            flex
+                            justify-center
+                            items-center
+                            w-72
+                            h-72
+                            border-solid
+                            border-2
+                            p-10
+                            rounded-lg
+                    '>
                         <input {...getInputProps()} />
                         <p>ここにファイルをドラッグ&ドロップまたは
                             <br />
@@ -203,7 +218,12 @@ return (
                 <img src={"http://localhost:3001/" +  formData.location_image} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />
             )}
             </div>
-            <div>
+            <div className='
+                flex
+                justify-center
+                items-center
+            '
+            >
             {files.map(file => {
                 if (file.type.startsWith('image/')) {
                     return <img src={URL.createObjectURL(file)} alt={file.name} key={file.name} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />;
