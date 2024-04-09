@@ -33,19 +33,24 @@ function Header() {
                     🧑‍💻Awsome Study Spaces🧑‍💻
                 </Link>
             </h1>    
-            <div className='group body-font text-right text-xl font-bold'>
-                <div className='group-hover:visible opacity-100'>
+            <div className='flex group body-font text-right text-xl font-bold'>
+                <div className='group-hover:visible opacity-100 whitespace-no-wrap'>
                     {isSignedIn && currentUser ? 
                     <>
                         {currentUser && <a>User: {currentUser.name}</a>}
-                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/LocationPosts" style={{ margin: '5px' }}>LocationPosts</a>
-                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/UserProfile" style={{ margin: '5px' }}>UserProfile</a>
+                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/UserProfile">UserProfile</a>
                         <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/PostCreate">Post Location</a>
-                        <button type="button" onClick={handleSignOut}>SignOut</button>
+                        {/* <button className="hover:text-blue-600 transition-colors duration-300" type="button" onClick={handleSignOut}>SignOut</button> */}
+                        <button
+                            className="m-5 font-bold hover:text-blue-800 transition-colors duration-300" // ボタンに適用するクラスを追加
+                            type="button"
+                            onClick={handleSignOut}
+                        >
+                            SignOut
+                        </button>
                     </>
                     :
-                    <>
-                        <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/LocationPosts" style={{ margin: '5px' }}>LocationPosts</a>
+                    <>                        
                         <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/SignUp" style={{ margin: '5px' }}>SignUp</a>
                         <a className="m-5 hover:text-blue-600 transition-colors duration-300" href="/SignIn" style={{ margin: '5px' }}>SignIn</a>
                     </>
