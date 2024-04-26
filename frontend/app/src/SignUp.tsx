@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-import { useEffect, useState } from 'react';
-import client from './lib/api/client';
+import { useState } from 'react';
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from './components/Header';
 import { signUp } from './lib/api/auth';
 import { AuthContext } from './App';

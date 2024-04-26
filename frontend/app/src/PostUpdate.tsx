@@ -1,9 +1,9 @@
 import './App.css';
 import React, { useEffect, useState, useCallback } from 'react';
 import client from './lib/api/client';
-import { useDropzone, FileWithPath } from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import Header from './components/Header';
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface FormData {
     title: string;
@@ -21,7 +21,6 @@ const PostUpdate: React.FC = () => {
     const navigation = useNavigate()
 
     const { id } = Location.state as currentId;
-    const [data, setData] = useState<FormData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [files, setFiles] = useState<File[]>([]);
 
@@ -40,7 +39,7 @@ const PostUpdate: React.FC = () => {
         setFiles(prevFiles => [...prevFiles, ...newFiles]);
     }, []);
 
-    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ 
+    const { getRootProps, getInputProps } = useDropzone({ 
         onDrop,
         accept: {
             'image/png': ['.png', '.jpg', '.jpeg'],
@@ -57,9 +56,9 @@ const PostUpdate: React.FC = () => {
                 console.error('HTTPリクエストエラー:', error);
                 setError(error.message);
             });
-    }, []);
+    });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
@@ -155,8 +154,8 @@ return (
                 font-bold
                 text-xl
             '>
-                <label>詳細文:</label><br />
-                <input
+                <label>詳細文</label><br />
+                <textarea
                     className='
                         p-2
                         border-solid
@@ -167,7 +166,6 @@ return (
                         w-72
                         text-balance
                     '
-                    type="text"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
@@ -180,7 +178,7 @@ return (
             '>
                 <label>画像選択</label><br />
             </div>
-            {!formData.location_image && files.length == 0 && (
+            {!formData.location_image && files.length === 0 && (
                 <div className='
                     flex
                     justify-center
@@ -209,13 +207,15 @@ return (
                     </div>
                 </div>
             )}
+            {error && <p>{error}</p>}
+            
             <div className='
                 flex
                 justify-center
                 items-center
             '>
             {files && formData.location_image && (
-                <img src={"http://localhost:3001/" +  formData.location_image} style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />
+                <img src={"http://localhost:3001/" +  formData.location_image} alt="location_image" style={{ maxWidth: '300px', maxHeight: '300px', margin: '5px' }} />
             )}
             </div>
             <div className='

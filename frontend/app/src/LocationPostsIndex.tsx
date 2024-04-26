@@ -43,6 +43,7 @@ const LocationPostsIndex = () => {
                     </div>
                 </Link>
             ))}
+            {error && <p>{error}</p>}
         </div>
     );
 }

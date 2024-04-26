@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useEffect, useState, useContext, useMemo, useCallback } from 'react';
-import { useDropzone, FileWithPath } from 'react-dropzone';
+import React, { useState, useContext, useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 import client from './lib/api/client';
 import Header from './components/Header';
 import { useNavigate } from 'react-router-dom';
@@ -15,8 +15,7 @@ interface FormData {
 
 const PostCreate: React.FC = () => {
     const navigation = useNavigate()
-    const {currentUser, setCurrentUser} = useContext(AuthContext)
-    const [previewImagePaths, setPreviewImagePaths] = useState<string[]>();
+    const {currentUser} = useContext(AuthContext)
     const [files, setFiles] = useState<File[]>([]);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -27,7 +26,7 @@ const PostCreate: React.FC = () => {
         setFiles(prevFiles => [...prevFiles, ...newFiles]);
     }, []);
 
-    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({ 
+    const { getRootProps, getInputProps } = useDropzone({ 
         onDrop,
         accept: {
             'image/png': ['.png', '.jpg', '.jpeg'],
@@ -41,7 +40,7 @@ const PostCreate: React.FC = () => {
         location_image: null
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
@@ -135,16 +134,18 @@ return (
                     font-bold
                     text-xl
             '>
-                <label>詳細文:</label><br />
-                <input
+                <label>詳細文</label><br />
+                <textarea
                     className='
                         p-2
                         border-solid
                         border-2
                         border-sky-500
                         rounded-lg
+                        w-72
+                        h-72
                     '
-                    type="text"
+                    // type="text"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
@@ -156,7 +157,7 @@ return (
             '>
                 <label>画像選択</label><br />
             </div>
-            {files.length == 0 && (
+            {files.length === 0 && (
                 <div className='
                     flex
                     justify-center

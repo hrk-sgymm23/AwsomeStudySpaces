@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import { AuthContext } from './App';
 import client from './lib/api/client';
-import { error } from 'console';
 
 interface postSummary {
     id: number;
@@ -12,7 +11,7 @@ interface postSummary {
 }
 
 function UserProfile() {
-    const { isSignedIn, setIsSignedIn, currentUser, setCurrentUser } = useContext(AuthContext)
+    const { currentUser } = useContext(AuthContext)
     const [dataSummery, setDataSummary] = useState< postSummary[] | null >(null);
 
     useEffect(() => {

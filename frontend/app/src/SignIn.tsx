@@ -1,7 +1,7 @@
 import React from 'react';
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from './components/Header';
 import { signIn } from './lib/api/auth';
 import { AuthContext } from './App';

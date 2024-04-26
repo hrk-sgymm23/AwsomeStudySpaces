@@ -4,7 +4,6 @@ import client from './lib/api/client';
 import { useParams } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from './App';
-import { title } from 'process';
 
 interface LocationPost {
     id: number;
@@ -21,7 +20,7 @@ const LocationPosts: React.FC = () => {
     const { locationPostId } = useParams<{ locationPostId: string }>();
     const [data, setData] = useState<LocationPost | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const { setIsSignedIn, setCurrentUser, isSignedIn, currentUser } = useContext(AuthContext)
+    const { isSignedIn, currentUser } = useContext(AuthContext)
 
     useEffect(() => {
         client.get<LocationPost>(`/location_posts/${locationPostId}`)
@@ -66,15 +65,15 @@ const LocationPosts: React.FC = () => {
                     )}
                     {data && (
                         <div className="px-6 py-4">
-                            <div className='font-bold text-xl mb-2'>
-                                <h2>{data.title}</h2>
-                                <p>{data.description}</p>
-                                <p>{data.address}</p>
+                            <div className='font-bold mb-2'>
+                                <h2 className='text-xl p-1'>{data.title}</h2>
+                                <p className='text-l p-1'>{data.description}</p>
+                                <p className='text-l p-1'>場所:{data.address}</p>
                             </div>
                         </div>
                     )}
                     {error && <p>{error}</p>}
-                    {isSignedIn && (data?.user_id == currentUser?.id) && (
+                    {isSignedIn && (data?.user_id === currentUser?.id) && (
                         <div>
                             <h3 className="hover:text-gray-900 font-bold text-xl">
                                 <Link to="/PostUpdate" state={{ id: locationPostId }}>

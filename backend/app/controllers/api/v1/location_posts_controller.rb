@@ -40,20 +40,7 @@ class Api::V1::LocationPostsController < ApplicationController
 
     def update
         ActiveRecord::Base.transaction do
-            if location_post_params.include?(:location_image)
-                @location_post.update!(location_post_params)
-            else
-                @location_post.assign_attributes(location_post_params)
-                if @location_post.save
-                    @location_post.location_image.purge
-                    no_image_file = File.open(Rails.root.join('app/assets/blankImage.png'))
-                    @location_post.location_image.attach(io: no_image_file, filename: 'no_image.png', content_type: 'image/png')
-                else
-                    render json: @location_post.errors, status: :bad_request
-                    raise ActiveRecord::Rollback
-                end
-            end
-
+            @location_post.update!(location_post_params)
             render json: @location_post, status: :ok
         end
     rescue ActiveRecord::RecordInvalid => e
