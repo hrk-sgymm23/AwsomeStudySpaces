@@ -18,20 +18,23 @@ namespace :create_sample_data do
                 end
 
                 # サンプルアカウントに紐づく投稿作成
-                sample_location_post = sample_user.location_posts.new(
-                    title: "Sample Cafe",
-                    description: "Sample Description...",
-                    address: "Sample Prefecture Sample City",
-                    user_id: sample_user.id
-                )
-                sample_image_file = File.open(Rails.root.join('app/assets/sample_cafe.png'))
-                sample_location_post.location_image.attach(
-                    io: sample_image_file,
-                    filename: 'sample_cafe.png',
-                    content_type: 'image/png'
-                )
-                sample_location_post.save!
-                Rails.logger.info "#{sample_location_post.title} created!"
+                5.times do |i|
+                    sample_location_post = sample_user.location_posts.new(
+                        title: "Sample Cafe_#{i}",
+                        description: "Sample Description...",
+                        address: "Sample Prefecture Sample City",
+                        user_id: sample_user.id
+                    )
+                    
+                    sample_image_file = File.open(Rails.root.join("app/assets/sample_cafe_#{i}.png"))
+                    sample_location_post.location_image.attach(
+                        io: sample_image_file,
+                        filename: 'sample_cafe.png',
+                        content_type: 'image/png'
+                    )
+                    sample_location_post.save!
+                    Rails.logger.info "#{sample_location_post.title} created!"
+                end
             rescue => e
                 Rails.logger.error "An error occurred: #{e.message}"
                 raise ActiveRecord::Rollback
