@@ -1,7 +1,7 @@
 import client from "./client";
 import { SignUpParams, SignInParams } from "../../interfaces";;
 
-const getAuthHeaders = () => {
+export const getAuthHeaders = () => {
     return {
         "access-token": localStorage.getItem('access-token'),
         "client": localStorage.getItem('client'),

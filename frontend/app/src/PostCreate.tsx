@@ -5,6 +5,7 @@ import client from './lib/api/client';
 import Header from './components/Header';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './App';
+import { getAuthHeaders } from './lib/api/auth';
 
 interface FormData {
     title: string;
@@ -67,10 +68,10 @@ const PostCreate: React.FC = () => {
             requestData.append('location_post[user_id]', currentUser ? currentUser.id.toString() : '');
             if (files[0]){
                 requestData.append('location_post[location_image]', files[0])    
-            }    
-            console.log(requestData)
+            }
+            const authHeaders = { headers: getAuthHeaders() }
 
-            const response = await client.post('/location_posts', requestData);
+            const response = await client.post('/location_posts', requestData, authHeaders);
             if (response.status === 201 ||response.status === 204) {
                 console.log('LocationPost Create request successful:', response.data);
                 navigation("/LocationPosts");
