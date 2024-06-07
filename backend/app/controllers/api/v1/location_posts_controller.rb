@@ -1,5 +1,6 @@
 class Api::V1::LocationPostsController < ApplicationController
     before_action :set_location_post, only: [:show, :update, :destroy]
+    before_action :authenticate_api_v1_user!, only: [:create, :update, :destroy, :get_users_posts]
 
     def index
         @location_posts = LocationPost.all

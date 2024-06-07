@@ -56,7 +56,7 @@ const PostUpdate: React.FC = () => {
                 console.error('HTTPリクエストエラー:', error);
                 setError(error.message);
             });
-    });
+    }, [id]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({
