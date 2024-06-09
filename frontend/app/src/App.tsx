@@ -62,18 +62,21 @@ function App() {
         <Routes>
           <Route path="PostCreate" element={ <PostCreate /> }/>
           <Route path="PostUpdate" element={ <PostUpdate /> }/>
-          <Route path="UserProfile" element= { <UserProfile /> }></Route>
-          <Route path="/" element={ <Home /> } />
-        <Route path="/LocationPostDeatil" element={ <LocationPostDetail /> } />
-        <Route path="/LocationPosts" element={ <LocationPosts /> }>
-          <Route index element={ <LocationPostsIndex /> }/>
-          <Route path=":locationPostId" element={ <LocationPost /> } />
-        </Route>
-        <Route path="SignUp" element= { <SignUp /> }></Route>
-        <Route path="SignIn" element= { <SignIn /> }></Route>
-        <Route path="*" element={ <NotFound /> } />
+          <Route path="UserProfile" element={ <UserProfile /> }/>
+          <Route path="/" element={ <LocationPosts /> }>
+            <Route index element={ <LocationPostsIndex /> }/>
+            <Route path=":locationPostId" element={ <LocationPost /> } />
+          </Route>
+          <Route path="LocationPosts" element={ <LocationPosts /> }>
+            <Route index element={ <LocationPostsIndex /> }/>
+            <Route path=":locationPostId" element={ <LocationPost /> } />
+          </Route>
+          <Route path="/LocationPostDetail" element={ <LocationPostDetail /> } />
+          <Route path="SignUp" element={ <SignUp /> }/>
+          <Route path="SignIn" element={ <SignIn /> }/>
+          <Route path="*" element={ <NotFound /> } />
         </Routes>
-      </AuthContext.Provider> 
+      </AuthContext.Provider>
     </div>
   );
 }
