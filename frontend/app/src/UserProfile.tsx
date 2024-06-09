@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import { AuthContext } from './App';
 import client from './lib/api/client';
+import { getAuthHeaders } from './lib/api/auth';
+import { get } from 'https';
 
 interface postSummary {
     id: number;
@@ -18,7 +20,8 @@ function UserProfile() {
         // idがない時はリクエストしない
         if (currentUser?.id) {
             const userId = currentUser?.id
-            client.get<postSummary[]>(`/location_posts/${ userId }/get_users_posts`)
+            const authHeaders = { headers: getAuthHeaders() }
+            client.get<postSummary[]>(`/location_posts/${ userId }/get_users_posts`, authHeaders)
             .then((response) => {
                 const responseData = response.data;
                 setDataSummary(responseData);

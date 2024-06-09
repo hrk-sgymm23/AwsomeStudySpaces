@@ -4,6 +4,7 @@ import client from './lib/api/client';
 import { useDropzone } from 'react-dropzone';
 import Header from './components/Header';
 import { useLocation, useNavigate } from "react-router-dom";
+import { getAuthHeaders } from './lib/api/auth';
 
 interface FormData {
     title: string;
@@ -84,8 +85,9 @@ const PostUpdate: React.FC = () => {
             if (files[0]){
                 requestData.append('location_post[location_image]', files[0])    
             }
+            const authHeaders = { headers: getAuthHeaders() }
 
-            const response = await client.put(`/location_posts/${id}`, requestData);
+            const response = await client.put(`/location_posts/${id}`, requestData, authHeaders);
             if (response.status === 200) {
                 console.log('LocationPost Update request successful:', response.data);
                 navigation("/LocationPosts");
