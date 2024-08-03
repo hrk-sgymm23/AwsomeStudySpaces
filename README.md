@@ -18,3 +18,28 @@
 
 - Ruby on Rails
   - `7.0.8.1`
+
+## ECSへのデプロイ
+
+```bash
+# authenticated
+$ aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin {account_number}.dkr.ecr.ap-northeast-1.amazonaws.com
+
+
+# Rails
+$ cd ass/backend
+
+$ docker build --no-cache -f ./docker/staging/Dockerfile --platform linux/amd64  -t ass-rails-ecr-staging .
+
+$ docker tag ass-rails-ecr-staging:latest {account_number}.dkr.ecr.ap-northeast-1.amazonaws.com/ass-rails-ecr-staging:stg
+
+$ docker push {account_number}.dkr.ecr.ap-northeast-1.amazonaws.com/ass-rails-ecr-staging:stg
+
+
+# Nginx
+$ docker build --no-cache --platform linux/amd64 -t ass-nginx-ecr-staging .
+
+$ docker tag ass-nginx-ecr-staging:latest {account_number}.dkr.ecr.ap-northeast-1.amazonaws.com/ass-nginx-ecr-staging:stg
+
+$ docker push {account_number}.dkr.ecr.ap-northeast-1.amazonaws.com/ass-nginx-ecr-staging:stg
+```
