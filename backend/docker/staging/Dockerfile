@@ -24,6 +24,6 @@ EXPOSE 3000
 
 # CMD bash -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
 # CMD /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec puma -C config/puma.rb"
-COPY ./entrypoint.sh /usr/bin/
+COPY ./docker/staging/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
