@@ -1,12 +1,11 @@
-import './App.css';
-import React from 'react';
-import Header from './components/Header';
+import "./App.css";
+import React from "react";
+import Header from "./components/Header";
 
 function NotFound() {
-
   return (
     <div>
-      <Header />  
+      <Header />
       <h1>NotFound 404</h1>
     </div>
   );
