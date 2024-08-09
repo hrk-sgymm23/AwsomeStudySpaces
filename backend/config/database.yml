@@ -63,3 +63,11 @@ staging:
   host: <%= ENV["DB_ENDPOINT"] %>
   username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  username: root
+  password:
+  host: 127.0.0.1
+  database: ass_test
