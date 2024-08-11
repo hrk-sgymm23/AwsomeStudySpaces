@@ -92,9 +92,11 @@ jobs:
 
             - name: Install npm
               run: npm ci
+              working-directory: ./frontend/app
 
             - name: run Prettier
               run: npm run format
+              working-directory: ./frontend/app
 
             - name: Check diff exits
               run: |
@@ -106,4 +108,5 @@ jobs:
                   git diff
                   exit -1
                 fi
+              working-directory: ./frontend/app
 
