@@ -34,7 +34,7 @@ function Header() {
           <span role="img" aria-labelledby="aboutEmoji">
             🧑‍💻
           </span>
-          Awsome Study Spaces
+          AwsomeStudySpaces
           <span role="img" aria-labelledby="aboutEmoji">
             🧑‍💻
           </span>
