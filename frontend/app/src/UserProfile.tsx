@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import { AuthContext } from "./App";
 import client from "./lib/api/client";
 import { getAuthHeaders } from "./lib/api/auth";
-import { get } from "https";
 
 interface postSummary {
   id: number;

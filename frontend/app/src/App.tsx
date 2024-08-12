@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState, useEffect, createContext } from "react";
-import Home from "./Home";
 import { Routes, Route } from "react-router-dom";
 import LocationPostDetail from "./LocationPostDetail";
 import LocationPosts from "./LocationPosts";
