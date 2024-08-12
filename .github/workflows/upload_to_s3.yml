@@ -33,6 +33,6 @@ jobs:
               working-directory: ./frontend/app
             
             - name: Deploy to S3
-              run: aws s3 sync ./dist/ s3://${{ secrets.BUCKET_ID }} --region ap-northeast-1
+              run: aws s3 sync --delete ./build/ s3://${{ secrets.BUCKET_ID }} --region ap-northeast-1
               working-directory: ./frontend/app
      
