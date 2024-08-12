@@ -1,0 +1,48 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+    PushRailstoECR:
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            contents: read
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3 
+            
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: ap-northeast-1
+
+            - name: Login ECR
+              uses: aws-actions/amazon-ecr-login@v1
+              id: login-ecr
+
+            - name: Image Build & Push to Rails ECR
+              env:
+                REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                RAILS_REPOSITORY: "ass-rails-ecr-staging"
+                IMAGE_TAG: stg
+              run: |
+                docker build . --tag --no-cache -f ./docker/staging/Dockerfile --platform linux/amd64 ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker push ${{ env.REGISTRY }}/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
+              working-directory: ./backend
+
+            - name: Image Build & Push to Nginx ECR
+              env:
+                REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                NGINX_REPOSITORY: "ass-nginx-ecr-staging"
+                IMAGE_TAG: stg
+              run: |
+                docker build . --no-cache --platform linux/amd64 ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker push ${{ env.REGISTRY }}/${{ env.NGINX_REPOSITORY }}:${{ env.IMAGE_TAG }}
+              working-directory: ./nginx
