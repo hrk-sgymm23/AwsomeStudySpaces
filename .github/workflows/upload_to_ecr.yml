@@ -27,20 +27,19 @@ jobs:
 
             - name: Image Build & Push to Rails ECR
               env:
-                RAILS_REGISTRY: ${{ secrets.RAILS_REGISTRY }}
                 RAILS_REPOSITORY: "ass-rails-ecr-staging"
                 IMAGE_TAG: stg
               run: |
-                docker build . --tag --no-cache -f ./docker/staging/Dockerfile --platform linux/amd64 ${{ env.RAILS_REGISTRY }}/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
-                docker push ${{ env.RAILS_REGISTRY }}/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
-              working-directory: ./backend
+                docker build --no-cache -f ./docker/staging/Dockerfile --platform linux/amd64  -t ${{ env.RAILS_REPOSITORY }} .
+                docker tag ${{ env.RAILS_REPOSITORY }}:latest 730335441282.dkr.ecr.ap-northeast-1.amazonaws.com/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker push 730335441282.dkr.ecr.ap-northeast-1.amazonaws.com/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
             - name: Image Build & Push to Nginx ECR
               env:
-                NGINX_REGISTRY: ${{ secrets.NGINX_REGISTRY }}
                 NGINX_REPOSITORY: "ass-nginx-ecr-staging"
                 IMAGE_TAG: stg
               run: |
-                docker build . --no-cache --platform linux/amd64 ${{ env.NGINX_REGISTRY }}/${{ env.NGINX_REPOSITORY }}:${{ env.IMAGE_TAG }}
-                docker push ${{ env.NGINX_REGISTRY }}/${{ env.NGINX_REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker build --no-cache --platform linux/amd64 -t ${{ env.NGINX_REPOSITORY }} .
+                docker tag ${{ env.NGINX_REPOSITORY }}:latest 730335441282.dkr.ecr.ap-northeast-1.amazonaws.com/${{ env.NGINX_REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker push 730335441282.dkr.ecr.ap-northeast-1.amazonaws.com/${{ env.NGINX_REPOSITORY }}:${{ env.IMAGE_TAG }}
               working-directory: ./nginx
