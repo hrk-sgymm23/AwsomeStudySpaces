@@ -33,6 +33,7 @@ jobs:
                 docker build --no-cache -f ./docker/staging/Dockerfile --platform linux/amd64  -t ${{ env.RAILS_REPOSITORY }} .
                 docker tag ${{ env.RAILS_REPOSITORY }}:latest 730335441282.dkr.ecr.ap-northeast-1.amazonaws.com/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
                 docker push 730335441282.dkr.ecr.ap-northeast-1.amazonaws.com/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
+              working-directory: ./backend
 
             - name: Image Build & Push to Nginx ECR
               env:
