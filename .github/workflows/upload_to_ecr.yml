@@ -31,8 +31,8 @@ jobs:
                 RAILS_REPOSITORY: "ass-rails-ecr-staging"
                 IMAGE_TAG: stg
               run: |
-                docker build . --tag --no-cache -f ./docker/staging/Dockerfile --platform linux/amd64 ${{ env.RAILS_REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
-                docker push ${{ env.REGISTRY }}/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker build . --tag --no-cache -f ./docker/staging/Dockerfile --platform linux/amd64 ${{ env.RAILS_REGISTRY }}/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker push ${{ env.RAILS_REGISTRY }}/${{ env.RAILS_REPOSITORY }}:${{ env.IMAGE_TAG }}
               working-directory: ./backend
 
             - name: Image Build & Push to Nginx ECR
@@ -41,6 +41,6 @@ jobs:
                 NGINX_REPOSITORY: "ass-nginx-ecr-staging"
                 IMAGE_TAG: stg
               run: |
-                docker build . --no-cache --platform linux/amd64 ${{ env.NGINX_REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
-                docker push ${{ env.REGISTRY }}/${{ env.NGINX_REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker build . --no-cache --platform linux/amd64 ${{ env.NGINX_REGISTRY }}/${{ env.NGINX_REPOSITORY }}:${{ env.IMAGE_TAG }}
+                docker push ${{ env.NGINX_REGISTRY }}/${{ env.NGINX_REPOSITORY }}:${{ env.IMAGE_TAG }}
               working-directory: ./nginx
