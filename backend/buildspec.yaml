@@ -1,0 +1,27 @@
+version: 0.2
+
+env:
+  parameter-store:
+    RAILS_MASTER_KEY: /ass-staging/rails-master-key
+
+phases:
+  pre_build:
+    commands:
+      - IMAGE_TAG=stg
+      - IMAGE_URI=730335441282.dkr.ecr.ap-northeast-1.amazonaws.com/ass-rails-ecr-staging:$IMAGE_TAG
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 730335441282.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+
+  build:
+    commands:
+      # imageDetail.jsonからイメージURIを取得
+      - IMAGE=$(cat imageDetail.json | jq -r '.ImageURI')
+      - docker run --rm -e RAILS_MASTER_KEY -e DATABASE_URL $IMAGE rails db:migrate
+      - aws s3 cp s3://ass-pipeline-staging/task_def ./task_definitions.json
+      - aws s3 cp s3:/ass-pipeline-staging/app_spec ./appspec.yml
+      # コンテナイメージのURIを動的に置き換え
+      - sed -i "s|<IMAGE_URI>|$IMAGE_URI|g" task_definitions.json
+
+artifacts:
+  files:
+    - task_definitions.json
+    - appspec.yml
